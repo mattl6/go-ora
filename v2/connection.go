@@ -127,6 +127,12 @@ func NewConnector(connString string) driver.Connector {
 	return &OracleConnector{connectString: connString, drv: NewDriver()}
 }
 
+func NewConnectorWithConfig(config *configurations.ConnectionConfig) driver.Connector {
+	newDrv := NewDriver()
+	newDrv.connOption = config
+	return &OracleConnector{drv: newDrv}
+}
+
 func (driver *OracleDriver) OpenConnector(connString string) (driver.Connector, error) {
 	// create hash from connection string
 	return &OracleConnector{drv: driver, connectString: connString}, nil
